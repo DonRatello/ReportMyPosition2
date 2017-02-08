@@ -24,7 +24,56 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
-        android:id="@+id/txtCOntactNmbr"
+        android:text="+48"
+        android:id="@+id/txtContactNmbr"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:text="ON"
+            android:enabled="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:id="@+id/btnOn"
+            android:onClick="btnOnClick" />
+
+        <Button
+            android:text="OFF"
+            android:enabled="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/btnOff"
+            android:onClick="btnOffClick" />
+
+    </GridLayout>
+
+    <TextView
+        android:text="STATUS:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="150dp"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:text="Not working"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtStatus"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="153dp"
+        android:layout_marginLeft="85dp"
+        android:textSize="15dp"/>
+
 </RelativeLayout>

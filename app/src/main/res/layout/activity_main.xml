@@ -10,30 +10,73 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.czernecki.marcin.reportmyposition.MainActivity">
 
-    <Button
-        android:text="Contact"
-        android:layout_width="wrap_content"
+    <GridLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/btnPickContact"
-        android:onClick="pickContact" />
+        android:layout_centerHorizontal="true">
 
-    <EditText
-        android:layout_width="wrap_content"
+        <Button
+            android:text="Contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="15dp"
+            android:id="@+id/btnPickContact"
+            android:onClick="pickContact" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:text="+48"
+            android:id="@+id/txtContactNmbr"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            />
+
+        </GridLayout>
+
+    <GridLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:text="+48"
-        android:id="@+id/txtContactNmbr"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        />
+        android:layout_marginTop="55dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:text="Report position every"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="15dp"
+            android:textSize="15dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="5"
+            android:textAlignment="center"
+            android:text="1"
+            android:id="@+id/txtInterval" />
+
+        <TextView
+            android:text="min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentStart="true"
+            android:textSize="15dp"/>
+
+        </GridLayout>
 
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="120dp"
         android:layout_centerHorizontal="true">
 
         <Button
@@ -57,23 +100,71 @@
 
     </GridLayout>
 
+    <GridLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_centerHorizontal="true">
+
     <TextView
         android:text="STATUS:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="150dp"
-        android:textSize="20dp"/>
+        android:textSize="15dp"/>
 
     <TextView
         android:text="Not working"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtStatus"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="153dp"
-        android:layout_marginLeft="85dp"
-        android:textSize="15dp"/>
+        android:layout_marginLeft="20dp"
+        android:textSize="20dp"/>
+
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:text="Latitude:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtPositionLatitude"
+            android:layout_marginLeft="32dp"
+            android:textSize="20dp"/>
+
+        </GridLayout>
+
+    <GridLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="260dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:text="Longitude:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView6"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtPositionLongitude"
+            android:layout_marginLeft="20dp"
+            android:textSize="20dp"/>
+
+    </GridLayout>
 
 </RelativeLayout>

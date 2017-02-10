@@ -27,6 +27,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements
     EditText txtInterval;
     EditText txtContactNumber;
     GoogleApiClient googleApiClient;
+    Timer timer;
 
     int interval;
     Location lastLocation;
@@ -59,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements
         txtInterval = (EditText) findViewById(R.id.txtInterval);
         txtContactNumber = (EditText) findViewById(R.id.txtContactNmbr);
 
+        timer = new Timer();
+
         // Create an instance of GoogleAPIClient.
         if (googleApiClient == null) {
             googleApiClient = new GoogleApiClient.Builder(this)
@@ -74,19 +79,39 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void btnOnClick(View view) {
-        btnOn.setEnabled(false);
-        btnOff.setEnabled(true);
-        SetStatus("Initializing...");
+        try {
+            btnOn.setEnabled(false);
+            btnOff.setEnabled(true);
+            SetStatus("Initializing...");
+            interval = Integer.parseInt(txtInterval.getText().toString());
+            txtContactNumber.setEnabled(false);
+            txtInterval.setEnabled(false);
+        }
+        catch (Exception e) {
+            Toast.makeText(getBaseContext(), e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
 
-        googleApiClient.connect();
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Log.d("ReportMyPosition", "Timer RUN");
+                googleApiClient.connect();
+            }
+        }, interval*60*1000, interval*60*1000);
     }
 
     public void btnOffClick(View view) {
         btnOff.setEnabled(false);
         btnOn.setEnabled(true);
+        txtContactNumber.setEnabled(true);
+        txtInterval.setEnabled(true);
         SetStatus("OFF");
 
         googleApiClient.disconnect();
+
+        timer.cancel();
     }
 
     public void SetStatus(String message) {
@@ -116,9 +141,9 @@ public class MainActivity extends AppCompatActivity implements
             txtPositionLongitude.setText(String.valueOf(mLastLocation.getLongitude()));
             txtPositionLatitude.setText(String.valueOf(mLastLocation.getLatitude()));
 
-
             SendSms(txtContactNumber.getText().toString(), BuildMessageForSms());
 
+            SetStatus("Paused");
             googleApiClient.disconnect();
         }
     }
@@ -136,8 +161,14 @@ public class MainActivity extends AppCompatActivity implements
     public String BuildMessageForSms() {
         String googleLink = "http://www.google.com/maps/place/{lat},{lng}";
         googleLink = googleLink.replace("{lat}", String.valueOf(lastLocation.getLatitude())).replace("{lng}", String.valueOf(lastLocation.getLongitude()));
-        Log.d("ReportMyPosition", "SMS string length: " + googleLink.length());
-        return googleLink;
+
+        Calendar time = Calendar.getInstance();
+        String sTime = String.format("%02d", time.get(Calendar.HOUR_OF_DAY)) + ":" + String.format("%02d", time.get(Calendar.MINUTE)) + ":" + String.format("%02d", time.get(Calendar.SECOND));
+
+        String message = "Czas: " + sTime + "\n\n" + "Pozycja: \n" + googleLink;
+
+        Log.d("ReportMyPosition", "SMS string length: " + message.length());
+        return message;
     }
 
     private void SendSms(String phoneNumber, String message)
